@@ -1,59 +1,74 @@
 import React, { useState } from 'react';
-import { Mail } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would integrate with a newsletter service here
-    setIsSubmitted(true);
+    // Handle newsletter subscription
     setEmail('');
   };
 
   return (
-    <section className="py-20 bg-indigo-600 text-white">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <Mail size={40} className="mx-auto mb-5" />
-          <h2 className="text-3xl font-bold mb-3">Subscribe to Our Newsletter</h2>
-          <p className="text-indigo-100 mb-8">
-            Join our community and be the first to know about new products, exclusive offers, and style tips.
+    <div className="bg-gray-100">
+      <div className="container mx-auto px-6 py-24">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto text-center"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Join Our Fashion Community
+          </h2>
+          <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+            Subscribe to our newsletter and get exclusive offers, early access to new collections, and style inspiration delivered to your inbox.
           </p>
-          
-          {isSubmitted ? (
-            <div className="bg-white/10 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">Thank you for subscribing!</h3>
-              <p className="text-indigo-100">
-                You've been added to our newsletter list. Watch your inbox for exclusive offers.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+
+          <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
+            <div className="flex flex-col sm:flex-row gap-4">
               <input
                 type="email"
-                placeholder="Your email address"
-                className="px-4 py-3 rounded-md flex-grow text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email address"
+                className="flex-1 px-6 py-4 rounded-full border border-gray-300 focus:outline-none focus:border-black transition-colors"
                 required
               />
-              <button 
-                type="submit" 
-                className="bg-white text-indigo-600 px-6 py-3 rounded-md hover:bg-gray-100 transition-colors font-medium"
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-black text-white px-8 py-4 rounded-full hover:bg-gray-900 transition-colors"
+                type="submit"
               >
                 Subscribe
-              </button>
-            </form>
-          )}
-          
-          <p className="text-indigo-200 text-sm mt-4">
-            We respect your privacy. Unsubscribe at any time.
+              </motion.button>
+            </div>
+          </form>
+
+          <p className="text-sm text-gray-500 mt-6">
+            By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.
           </p>
-        </div>
+
+          <div className="mt-12 flex justify-center space-x-8">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900">50k+</div>
+              <div className="text-gray-600">Happy Subscribers</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900">100+</div>
+              <div className="text-gray-600">New Styles Monthly</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900">24/7</div>
+              <div className="text-gray-600">Style Updates</div>
+            </div>
+          </div>
+        </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 
